@@ -1,0 +1,37 @@
+function grouper_whatIs() {
+  var app = UiApp.createApplication().setHeight(550);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var panel = app.createVerticalPanel();
+  var grid = app.createGrid(1, 2);
+  var image = app.createImage(GROUPERICONURL);
+  image.setHeight("100px");
+  var label = app.createLabel("Grouper: A script for administering and delegating management of domain group membership from a single spreadsheet");
+  label.setStyleAttribute('fontSize', '1.5em').setStyleAttribute('fontWeight', 'bold');
+  grid.setWidget(0, 0, image);
+  grid.setWidget(0, 1, label);
+  var mainGrid = app.createGrid(4, 1);
+  var scrollPanel = app.createScrollPanel().setHeight("250px").setStyleAttribute("backgroundColor","whiteSmoke").setStyleAttribute('padding', '10px');
+  var html = "<h3>Features</h3>";
+  html += "<ul><li>Detects all existing groups on your domain and allows you select up to 30 groups for management in a spreadsheet.</li>";
+  html += "<li>Allows you to assign \"list managers\" for each group, who will have editing rights on the sheet specific to their group.</li>";
+  html += "<li>Loads rosters of all selected groups (members and owners) into separate, locked sheets in the spreadsheet.</li>";
+  html += "<li>Allows you to add, remove, and change the role of members in each group.</li> ";
+  html += "<li>Can be set up to provide delegated group-management permissions using locked sheets - great for allowing teachers or departments to manage their own group rosters.</li>";
+  html += "<li>Spreadsheet doubles as a group directory, handy to embed in a faculty/staff or other internal Google Site</li>";
+  html += "<li>Note: To use this script, you will need to have \"super admin\" rights to an Apps domain.</li>";
+  html += "<li>Note2: Not recommended for managing more than 30 groups in the same spreadsheet. Allows you to specify which of your domain groups you want to manage.</li>";
+  html += "</ul>";
+  scrollPanel.add(app.createHTML(html));
+  mainGrid.setWidget(0, 0, scrollPanel);
+  var sponsorLabel = app.createLabel("Brought to you by");
+  var sponsorImage = app.createImage("http://www.youpd.org/sites/default/files/acquia_commons_logo36.png");
+  var supportLink = app.createAnchor('Watch the tutorial!', 'http://www.youpd.org/grouper');
+  mainGrid.setWidget(1, 0, sponsorLabel);
+  mainGrid.setWidget(2, 0, sponsorImage);
+  mainGrid.setWidget(3, 0, supportLink);
+  app.add(grid);
+  panel.add(mainGrid);
+  app.add(panel);
+  ss.show(app);
+  return app;                                                                    
+}
